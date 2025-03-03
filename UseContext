@@ -35,3 +35,15 @@ createContext()	Makes a context (container for data).
 Provider	Wraps components and shares data.
 useContext()	Reads the data inside any child component.
 useContext = share global data easily across your app without passing props.
+
+function Form() {
+  const [name, setName] = useState("");
+
+  return (
+    <input
+      type="text"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+    />
+  );
+}
