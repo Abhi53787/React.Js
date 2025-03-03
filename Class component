@@ -1,0 +1,50 @@
+import React from "react";
+
+class Welcome extends React.Component {
+  constructor(props) {
+    super(props); // important to use props
+    // 🟡 Initializing state(like usestate in func )
+    this.state = {
+      count: 0,
+    };
+    console.log("Constructor called!");
+  }
+
+  componentDidMount() {
+    console.log("Component DID MOUNT!");
+    // Example: API call, timer, etc.(useeffect)
+    this.timer = setInterval(() => {
+      console.log("Timer running...");
+    }, 1000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {  
+
+// useeffect
+    if (prevState.count !== this.state.count) {
+      console.log("Count UPDATED!", this.state.count);
+    }
+  }
+
+  componentWillUnmount() {
+//useeffect
+    console.log("Component WILL UNMOUNT!");
+    clearInterval(this.timer); // cleanup example
+  }
+
+  increaseCount = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, {this.props.name}!</h1>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.increaseCount}>Increase</button>
+      </div>
+    );
+  }
+}
+
+export default Welcome;
