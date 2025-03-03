@@ -1,0 +1,63 @@
+ 
+👉 Instead of writing 5-10 useState() hooks and making your code messy...
+✅ You switch to useReducer() to handle all the logic in one place.
+
+✅ Example of "many states" with useState (messy):
+ 
+const [name, setName] = useState("");
+const [age, setAge] = useState(0);
+const [email, setEmail] = useState("");
+const [isActive, setIsActive] = useState(false);
+👆 Looks small now, but when updating these with conditions, it gets very messy.
+
+✅ Same thing with useReducer (clean & organized):
+ 
+const initialState = {
+  name: "",
+  age: 0,
+  email: "",
+  isActive: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_NAME":
+      return { ...state, name: action.payload };
+    case "SET_AGE":
+      return { ...state, age: action.payload };
+    case "SET_EMAIL":
+      return { ...state, email: action.payload };
+    case "TOGGLE_ACTIVE":
+      return { ...state, isActive: !state.isActive };
+    default:
+      return state;
+  }
+}
+
+const [state, dispatch] = useReducer(reducer, initialState);
+----------------------------------
+<input onChange={(e) => dispatch({ type: "SET_NAME", payload: e.target.value })} />
+🔑 When to use:
+When?	Solution
+✅ 1-2 simple values	useState() is fine
+✅ Many related values	useReducer() is better
+---------------------------------------------------
+useCallback is used to "remember" a function between renders, so React doesn’t recreate it again and again unless necessary.
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    console.log("Clicked!");
+  }, []);
+
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+      <Child onClick={handleClick} />
+    </>
+  );
+}
+
+
+✅ Complex update logic	useReducer() is best
