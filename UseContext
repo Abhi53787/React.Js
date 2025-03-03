@@ -1,0 +1,37 @@
+1.Creating Context
+
+import { createContext } from "react";
+
+export const UserContext = createContext();
+
+
+Provide data using provider
+
+import { UserContext } from "./UserContext";
+
+function App() {
+  const user = { name: "John Doe" };
+
+  return (
+    <UserContext.Provider value={user}>
+      <Navbar />
+    </UserContext.Provider>
+  );
+}
+
+3 Consume the data anywhere using useContext.
+ 
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
+
+function Avatar() {
+  const user = useContext(UserContext);
+
+  return <h1>{user.name}</h1>;
+}
+  So what’s happening?
+Concept	Meaning
+createContext()	Makes a context (container for data).
+Provider	Wraps components and shares data.
+useContext()	Reads the data inside any child component.
+useContext = share global data easily across your app without passing props.
